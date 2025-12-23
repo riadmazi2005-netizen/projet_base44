@@ -7,7 +7,30 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Users, ArrowLeft, Eye, EyeOff, Loader2, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+
+const STORAGE_PREFIX = 'schoolbus_';
+
+const generateId = () => {
+  return 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+};
+
+const getTutors = () => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}tutors`);
+  return data ? JSON.parse(data) : [];
+};
+
+const createTutor = (tutorData) => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}tutors`);
+  const tutors = data ? JSON.parse(data) : [];
+  const newTutor = { ...tutorData, id: generateId() };
+  tutors.push(newTutor);
+  localStorage.setItem(`${STORAGE_PREFIX}tutors`, JSON.stringify(tutors));
+  return newTutor;
+};
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 
 export default function TutorRegister() {
   const navigate = useNavigate();
@@ -31,7 +54,11 @@ export default function TutorRegister() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+<<<<<<< HEAD
   const handleSubmit = async (e) => {
+=======
+  const handleSubmit = (e) => {
+>>>>>>> fa70c49 (Ajout de la structure du projet)
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -44,7 +71,11 @@ export default function TutorRegister() {
 
     try {
       // Check if email or phone already exists
+<<<<<<< HEAD
       const existingTutors = await base44.entities.Tutor.list();
+=======
+      const existingTutors = getTutors();
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       const exists = existingTutors.find(t => t.email === formData.email || t.phone === formData.phone);
       
       if (exists) {
@@ -53,7 +84,11 @@ export default function TutorRegister() {
 
       // Create tutor
       const { confirmPassword, ...tutorData } = formData;
+<<<<<<< HEAD
       await base44.entities.Tutor.create(tutorData);
+=======
+      createTutor(tutorData);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       
       setSuccess(true);
       setTimeout(() => {

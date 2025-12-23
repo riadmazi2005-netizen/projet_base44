@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Badge } from "@/components/ui/badge";
@@ -17,9 +20,43 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UserCog, Users, Bell, Loader2, Phone, Edit, Save } from 'lucide-react';
 
+<<<<<<< HEAD
 const CLASSES = ['1AP', '2AP', '3AP', '4AP', '5AP', '6AP', '1AC', '2AC', '3AC', 'TC', '1BAC', '2BAC'];
 const QUARTERS = ['Hay Riad', 'Agdal', 'Hassan', 'Océan', 'Yacoub El Mansour', 'Akkari', 'Souissi'];
 
+=======
+const STORAGE_PREFIX = 'schoolbus_';
+const CLASSES = ['1AP', '2AP', '3AP', '4AP', '5AP', '6AP', '1AC', '2AC', '3AC', 'TC', '1BAC', '2BAC'];
+const QUARTERS = ['Hay Riad', 'Agdal', 'Hassan', 'Océan', 'Yacoub El Mansour', 'Akkari', 'Souissi'];
+
+const getBuses = (supervisorId) => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}buses`);
+  const buses = data ? JSON.parse(data) : [];
+  return buses.filter(b => b.supervisorId === supervisorId);
+};
+
+const getStudents = (busId) => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}students`);
+  const students = data ? JSON.parse(data) : [];
+  return students.filter(s => s.busId === busId && s.status === 'approved');
+};
+
+const getTutors = () => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}tutors`);
+  return data ? JSON.parse(data) : [];
+};
+
+const updateStudent = (id, updates) => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}students`);
+  const students = data ? JSON.parse(data) : [];
+  const index = students.findIndex(s => s.id === id);
+  if (index !== -1) {
+    students[index] = { ...students[index], ...updates };
+    localStorage.setItem(`${STORAGE_PREFIX}students`, JSON.stringify(students));
+  }
+};
+
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 export default function SupervisorStudents() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
@@ -40,15 +77,26 @@ export default function SupervisorStudents() {
     loadData(user);
   }, []);
 
+<<<<<<< HEAD
   const loadData = async (user) => {
     try {
       const buses = await base44.entities.Bus.filter({ supervisorId: user.id });
+=======
+  const loadData = (user) => {
+    try {
+      const buses = getBuses(user.id);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       const myBus = buses[0];
       setBus(myBus);
 
       if (myBus) {
+<<<<<<< HEAD
         const allStudents = await base44.entities.Student.filter({ busId: myBus.id, status: 'approved' });
         const tutors = await base44.entities.Tutor.list();
+=======
+        const allStudents = getStudents(myBus.id);
+        const tutors = getTutors();
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         const studentsWithTutors = allStudents.map(s => {
           const tutor = tutors.find(t => t.id === s.tutorId);
           return { ...s, tutorPhone: tutor?.phone, tutorName: `${tutor?.firstName} ${tutor?.lastName}` };
@@ -62,10 +110,17 @@ export default function SupervisorStudents() {
     }
   };
 
+<<<<<<< HEAD
   const handleEditStudent = async () => {
     setSubmitting(true);
     try {
       await base44.entities.Student.update(selectedStudent.id, {
+=======
+  const handleEditStudent = () => {
+    setSubmitting(true);
+    try {
+      updateStudent(selectedStudent.id, {
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         firstName: selectedStudent.firstName,
         lastName: selectedStudent.lastName,
         class: selectedStudent.class,

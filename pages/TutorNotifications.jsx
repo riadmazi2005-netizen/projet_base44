@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +14,27 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
+<<<<<<< HEAD
+=======
+const STORAGE_PREFIX = 'schoolbus_';
+
+const getNotifications = (userId, userType) => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}notifications`);
+  const notifications = data ? JSON.parse(data) : [];
+  return notifications.filter(n => n.recipientId === userId && n.recipientType === userType);
+};
+
+const updateNotification = (id, updates) => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}notifications`);
+  const notifications = data ? JSON.parse(data) : [];
+  const index = notifications.findIndex(n => n.id === id);
+  if (index !== -1) {
+    notifications[index] = { ...notifications[index], ...updates };
+    localStorage.setItem(`${STORAGE_PREFIX}notifications`, JSON.stringify(notifications));
+  }
+};
+
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 export default function TutorNotifications() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
@@ -27,12 +51,18 @@ export default function TutorNotifications() {
     loadNotifications(user.id);
   }, []);
 
+<<<<<<< HEAD
   const loadNotifications = async (tutorId) => {
     try {
       const data = await base44.entities.Notification.filter({ 
         recipientId: tutorId, 
         recipientType: 'tutor' 
       });
+=======
+  const loadNotifications = (tutorId) => {
+    try {
+      const data = getNotifications(tutorId, 'tutor');
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       setNotifications(data.sort((a, b) => new Date(b.created_date) - new Date(a.created_date)));
     } catch (error) {
       console.error('Error loading notifications:', error);
@@ -41,9 +71,15 @@ export default function TutorNotifications() {
     }
   };
 
+<<<<<<< HEAD
   const markAsRead = async (notifId) => {
     try {
       await base44.entities.Notification.update(notifId, { read: true });
+=======
+  const markAsRead = (notifId) => {
+    try {
+      updateNotification(notifId, { read: true });
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       setNotifications(notifications.map(n => 
         n.id === notifId ? { ...n, read: true } : n
       ));

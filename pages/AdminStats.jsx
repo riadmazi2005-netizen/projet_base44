@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,12 +34,21 @@ export default function AdminStats() {
   const loadData = async () => {
     try {
       const [students, buses, drivers, routes, payments, accidents] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Student.filter({ status: 'approved' }),
         base44.entities.Bus.list(),
         base44.entities.Driver.list(),
         base44.entities.Route.list(),
         base44.entities.Payment.list(),
         base44.entities.Accident.list()
+=======
+        mockData.entities.Student.filter({ status: 'approved' }),
+        mockData.entities.Bus.list(),
+        mockData.entities.Driver.list(),
+        mockData.entities.Route.list(),
+        mockData.entities.Payment.list(),
+        mockData.entities.Accident.list()
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
 
       // Bus usage

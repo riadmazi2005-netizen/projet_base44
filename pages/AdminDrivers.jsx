@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Button } from "@/components/ui/button";
@@ -57,9 +61,15 @@ export default function AdminDrivers() {
   const loadData = async () => {
     try {
       const [driversData, busesData, accidentsData] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Driver.list(),
         base44.entities.Bus.list(),
         base44.entities.Accident.list()
+=======
+        mockData.entities.Driver.list(),
+        mockData.entities.Bus.list(),
+        mockData.entities.Accident.list()
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
       
       const driversWithDetails = driversData.map(d => {
@@ -89,9 +99,15 @@ export default function AdminDrivers() {
 
       if (editingDriver) {
         const { password, ...updateData } = data;
+<<<<<<< HEAD
         await base44.entities.Driver.update(editingDriver.id, password ? data : updateData);
       } else {
         await base44.entities.Driver.create(data);
+=======
+        await mockData.entities.Driver.update(editingDriver.id, password ? data : updateData);
+      } else {
+        await mockData.entities.Driver.create(data);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       }
 
       setShowDialog(false);
@@ -107,7 +123,11 @@ export default function AdminDrivers() {
   const deleteDriver = async (driver) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce chauffeur ?')) return;
     try {
+<<<<<<< HEAD
       await base44.entities.Driver.delete(driver.id);
+=======
+      await mockData.entities.Driver.delete(driver.id);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       loadData();
     } catch (error) {
       console.error('Error deleting driver:', error);

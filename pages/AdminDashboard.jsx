@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import StatCard from '@/components/ui/StatCard';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,6 +38,7 @@ export default function AdminDashboard() {
   const loadData = async () => {
     try {
       const [students, buses, drivers, routes, payments, accidents, notifs] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Student.list(),
         base44.entities.Bus.list(),
         base44.entities.Driver.list(),
@@ -41,6 +46,15 @@ export default function AdminDashboard() {
         base44.entities.Payment.list(),
         base44.entities.Accident.list(),
         base44.entities.Notification.filter({ recipientType: 'admin' })
+=======
+        mockData.entities.Student.list(),
+        mockData.entities.Bus.list(),
+        mockData.entities.Driver.list(),
+        mockData.entities.Route.list(),
+        mockData.entities.Payment.list(),
+        mockData.entities.Accident.list(),
+        mockData.entities.Notification.filter({ recipientType: 'admin' })
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
 
       const approvedStudents = students.filter(s => s.status === 'approved');

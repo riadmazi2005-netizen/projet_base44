@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Badge } from "@/components/ui/badge";
@@ -33,9 +37,15 @@ export default function AdminStudents() {
   const loadData = async () => {
     try {
       const [studentsData, busesData, tutorsData] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Student.filter({ status: 'approved' }),
         base44.entities.Bus.list(),
         base44.entities.Tutor.list()
+=======
+        mockData.entities.Student.filter({ status: 'approved' }),
+        mockData.entities.Bus.list(),
+        mockData.entities.Tutor.list()
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
       
       const studentsWithDetails = studentsData.map(s => {

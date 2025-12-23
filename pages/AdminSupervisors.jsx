@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Button } from "@/components/ui/button";
@@ -51,8 +55,13 @@ export default function AdminSupervisors() {
   const loadData = async () => {
     try {
       const [supervisorsData, busesData] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Supervisor.list(),
         base44.entities.Bus.list()
+=======
+        mockData.entities.Supervisor.list(),
+        mockData.entities.Bus.list()
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
       
       const supervisorsWithBus = supervisorsData.map(s => {
@@ -79,9 +88,15 @@ export default function AdminSupervisors() {
 
       if (editingSupervisor) {
         const { password, ...updateData } = data;
+<<<<<<< HEAD
         await base44.entities.Supervisor.update(editingSupervisor.id, password ? data : updateData);
       } else {
         await base44.entities.Supervisor.create(data);
+=======
+        await mockData.entities.Supervisor.update(editingSupervisor.id, password ? data : updateData);
+      } else {
+        await mockData.entities.Supervisor.create(data);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       }
 
       setShowDialog(false);
@@ -97,7 +112,11 @@ export default function AdminSupervisors() {
   const deleteSupervisor = async (supervisor) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce responsable ?')) return;
     try {
+<<<<<<< HEAD
       await base44.entities.Supervisor.delete(supervisor.id);
+=======
+      await mockData.entities.Supervisor.delete(supervisor.id);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       loadData();
     } catch (error) {
       console.error('Error deleting supervisor:', error);

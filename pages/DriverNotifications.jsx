@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockApi } from '@/services/mockData';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -29,7 +33,11 @@ export default function DriverNotifications() {
 
   const loadNotifications = async (userId) => {
     try {
+<<<<<<< HEAD
       const data = await base44.entities.Notification.filter({ 
+=======
+      const data = await mockApi.entities.Notification.filter({ 
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         recipientId: userId, 
         recipientType: 'driver' 
       });
@@ -43,7 +51,11 @@ export default function DriverNotifications() {
 
   const markAsRead = async (notifId) => {
     try {
+<<<<<<< HEAD
       await base44.entities.Notification.update(notifId, { read: true });
+=======
+      await mockApi.entities.Notification.update(notifId, { read: true });
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       setNotifications(notifications.map(n => 
         n.id === notifId ? { ...n, read: true } : n
       ));

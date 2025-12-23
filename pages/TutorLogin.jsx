@@ -3,14 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Users } from 'lucide-react';
 import LoginForm from '@/components/auth/LoginForm';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+
+const STORAGE_PREFIX = 'schoolbus_';
+
+const getTutors = () => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}tutors`);
+  return data ? JSON.parse(data) : [];
+};
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 
 export default function TutorLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async ({ identifier, password }) => {
     // Get all tutors
+<<<<<<< HEAD
     const tutors = await base44.entities.Tutor.list();
+=======
+    const tutors = getTutors();
+>>>>>>> fa70c49 (Ajout de la structure du projet)
     
     // Find tutor by email or phone
     const tutor = tutors.find(t => 

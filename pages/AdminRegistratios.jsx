@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Button } from "@/components/ui/button";
@@ -45,9 +49,15 @@ export default function AdminRegistrations() {
   const loadData = async () => {
     try {
       const [studentsData, busesData, tutorsData] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Student.filter({ status: 'pending' }),
         base44.entities.Bus.list(),
         base44.entities.Tutor.list()
+=======
+        mockData.entities.Student.filter({ status: 'pending' }),
+        mockData.entities.Bus.list(),
+        mockData.entities.Tutor.list()
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
       
       const studentsWithTutors = studentsData.map(s => {
@@ -72,7 +82,11 @@ export default function AdminRegistrations() {
     try {
       const bus = buses.find(b => b.id === selectedBus);
       
+<<<<<<< HEAD
       await base44.entities.Student.update(selectedStudent.id, {
+=======
+      await mockData.entities.Student.update(selectedStudent.id, {
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         status: 'approved',
         busId: selectedBus,
         busGroup: selectedGroup,
@@ -81,7 +95,11 @@ export default function AdminRegistrations() {
 
       // Create payment record
       const amount = selectedStudent.subscriptionType === 'annuel' ? 3000 : 300;
+<<<<<<< HEAD
       await base44.entities.Payment.create({
+=======
+      await mockData.entities.Payment.create({
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         studentId: selectedStudent.id,
         tutorId: selectedStudent.tutorId,
         amount,
@@ -91,7 +109,11 @@ export default function AdminRegistrations() {
       });
 
       // Notify tutor
+<<<<<<< HEAD
       await base44.entities.Notification.create({
+=======
+      await mockData.entities.Notification.create({
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         recipientId: selectedStudent.tutorId,
         recipientType: 'tutor',
         type: 'validation',
@@ -117,9 +139,15 @@ export default function AdminRegistrations() {
     if (!confirm('Êtes-vous sûr de vouloir refuser cette inscription ?')) return;
     
     try {
+<<<<<<< HEAD
       await base44.entities.Student.update(student.id, { status: 'rejected' });
 
       await base44.entities.Notification.create({
+=======
+      await mockData.entities.Student.update(student.id, { status: 'rejected' });
+
+      await mockData.entities.Notification.create({
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         recipientId: student.tutorId,
         recipientType: 'tutor',
         type: 'validation',

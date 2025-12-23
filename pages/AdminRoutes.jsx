@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Button } from "@/components/ui/button";
@@ -52,8 +56,13 @@ export default function AdminRoutes() {
   const loadData = async () => {
     try {
       const [routesData, busesData] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Route.list(),
         base44.entities.Bus.list()
+=======
+        mockData.entities.Route.list(),
+        mockData.entities.Bus.list()
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
       
       const routesWithBus = routesData.map(r => {
@@ -74,9 +83,15 @@ export default function AdminRoutes() {
     setSubmitting(true);
     try {
       if (editingRoute) {
+<<<<<<< HEAD
         await base44.entities.Route.update(editingRoute.id, formData);
       } else {
         await base44.entities.Route.create(formData);
+=======
+        await mockData.entities.Route.update(editingRoute.id, formData);
+      } else {
+        await mockData.entities.Route.create(formData);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       }
 
       setShowDialog(false);
@@ -92,7 +107,11 @@ export default function AdminRoutes() {
   const deleteRoute = async (route) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce trajet ?')) return;
     try {
+<<<<<<< HEAD
       await base44.entities.Route.delete(route.id);
+=======
+      await mockData.entities.Route.delete(route.id);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       loadData();
     } catch (error) {
       console.error('Error deleting route:', error);

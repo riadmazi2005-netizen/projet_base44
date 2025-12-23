@@ -3,13 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Bus } from 'lucide-react';
 import LoginForm from '@/components/auth/LoginForm';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockApi } from '@/services/mockData';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 
 export default function DriverLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async ({ identifier, password }) => {
+<<<<<<< HEAD
     const drivers = await base44.entities.Driver.list();
+=======
+    const drivers = await mockApi.entities.Driver.list();
+>>>>>>> fa70c49 (Ajout de la structure du projet)
     
     const driver = drivers.find(d => 
       (d.email === identifier || d.phone === identifier || d.cin === identifier) && d.password === password

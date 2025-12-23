@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockApi } from '@/services/mockData';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import StatCard from '@/components/ui/StatCard';
 import DataTable from '@/components/ui/DataTable';
@@ -23,9 +27,12 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+<<<<<<< HEAD
 const CLASSES = ['1AP', '2AP', '3AP', '4AP', '5AP', '6AP', '1AC', '2AC', '3AC', 'TC', '1BAC', '2BAC'];
 const QUARTERS = ['Hay Riad', 'Agdal', 'Hassan', 'Océan', 'Yacoub El Mansour', 'Akkari', 'Souissi'];
 
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 export default function DriverDashboard() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
@@ -40,7 +47,11 @@ export default function DriverDashboard() {
   const [showRaiseDialog, setShowRaiseDialog] = useState(false);
   const [showProfileDialog, setShowProfileDialog] = useState(false);
   const [raiseReason, setRaiseReason] = useState('');
+<<<<<<< HEAD
   const [profileData, setProfileData] = useState({});
+=======
+  const [profileData, setProfileData] = useState({ phone: '', email: '' });
+>>>>>>> fa70c49 (Ajout de la structure du projet)
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -55,16 +66,25 @@ export default function DriverDashboard() {
       email: user.email || ''
     });
     loadData(user);
+<<<<<<< HEAD
   }, []);
 
   const loadData = async (user) => {
     try {
       // Get driver's bus
       const buses = await base44.entities.Bus.filter({ driverId: user.id });
+=======
+  }, [navigate]);
+
+  const loadData = async (user) => {
+    try {
+      const buses = await mockApi.entities.Bus.filter({ driverId: user.id });
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       const myBus = buses[0];
       setBus(myBus);
 
       if (myBus) {
+<<<<<<< HEAD
         // Get route
         if (myBus.routeId) {
           const routes = await base44.entities.Route.list();
@@ -80,6 +100,20 @@ export default function DriverDashboard() {
         // Get students
         const allStudents = await base44.entities.Student.filter({ busId: myBus.id, status: 'approved' });
         const tutors = await base44.entities.Tutor.list();
+=======
+        if (myBus.routeId) {
+          const routes = await mockApi.entities.Route.list();
+          setRoute(routes.find(r => r.id === myBus.routeId));
+        }
+
+        if (myBus.supervisorId) {
+          const supervisors = await mockApi.entities.Supervisor.list();
+          setSupervisor(supervisors.find(s => s.id === myBus.supervisorId));
+        }
+
+        const allStudents = await mockApi.entities.Student.filter({ busId: myBus.id, status: 'approved' });
+        const tutors = await mockApi.entities.Tutor.list();
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         const studentsWithTutors = allStudents.map(s => {
           const tutor = tutors.find(t => t.id === s.tutorId);
           return { ...s, tutorPhone: tutor?.phone };
@@ -87,12 +121,19 @@ export default function DriverDashboard() {
         setStudents(studentsWithTutors);
       }
 
+<<<<<<< HEAD
       // Get accidents
       const allAccidents = await base44.entities.Accident.filter({ driverId: user.id });
       setAccidents(allAccidents);
 
       // Get notifications
       const notifs = await base44.entities.Notification.filter({ 
+=======
+      const allAccidents = await mockApi.entities.Accident.filter({ driverId: user.id });
+      setAccidents(allAccidents);
+
+      const notifs = await mockApi.entities.Notification.filter({ 
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         recipientId: user.id, 
         recipientType: 'driver' 
       });
@@ -107,7 +148,11 @@ export default function DriverDashboard() {
   const requestRaise = async () => {
     setSubmitting(true);
     try {
+<<<<<<< HEAD
       await base44.entities.RaiseRequest.create({
+=======
+      await mockApi.entities.RaiseRequest.create({
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         requesterId: currentUser.id,
         requesterType: 'driver',
         currentSalary: currentUser.salary || 0,
@@ -115,7 +160,11 @@ export default function DriverDashboard() {
         status: 'pending'
       });
 
+<<<<<<< HEAD
       await base44.entities.Notification.create({
+=======
+      await mockApi.entities.Notification.create({
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         recipientId: 'admin',
         recipientType: 'admin',
         type: 'raise_request',
@@ -138,7 +187,11 @@ export default function DriverDashboard() {
   const saveProfile = async () => {
     setSubmitting(true);
     try {
+<<<<<<< HEAD
       await base44.entities.Driver.update(currentUser.id, profileData);
+=======
+      await mockApi.entities.Driver.update(currentUser.id, profileData);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       const updatedUser = { ...currentUser, ...profileData };
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));
       setCurrentUser(updatedUser);
@@ -251,7 +304,11 @@ export default function DriverDashboard() {
           />
         </div>
 
+<<<<<<< HEAD
         {/* Bus, Route & Supervisor Info */}
+=======
+        {/* Info Cards */}
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <Card className="border-amber-100 shadow-lg">
             <CardHeader className="border-b border-amber-100 bg-gradient-to-r from-amber-50 to-yellow-50">
@@ -342,12 +399,15 @@ export default function DriverDashboard() {
                       {supervisor.phone}
                     </span>
                   </div>
+<<<<<<< HEAD
                   {supervisor.email && (
                     <div className="flex justify-between">
                       <span className="text-gray-500">Email:</span>
                       <span className="font-semibold text-sm">{supervisor.email}</span>
                     </div>
                   )}
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
                 </div>
               ) : (
                 <p className="text-gray-500 text-center py-4">Aucun responsable assigné</p>
@@ -356,7 +416,11 @@ export default function DriverDashboard() {
           </Card>
         </div>
 
+<<<<<<< HEAD
         {/* Students Preview */}
+=======
+        {/* Students Table */}
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         <Card className="border-amber-100 shadow-lg">
           <CardHeader className="border-b border-amber-100 bg-gradient-to-r from-amber-50 to-yellow-50">
             <CardTitle className="flex items-center justify-between">
@@ -399,11 +463,14 @@ export default function DriverDashboard() {
                       {v || '-'}
                     </span>
                   )
+<<<<<<< HEAD
                 },
                 {
                   key: 'absenceCount',
                   label: 'Absences',
                   render: (v) => <Badge variant="outline">{v || 0}</Badge>
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
                 }
               ]}
               data={students.slice(0, 5)}
@@ -420,23 +487,36 @@ export default function DriverDashboard() {
           <DialogHeader>
             <DialogTitle>Demander une augmentation</DialogTitle>
           </DialogHeader>
+<<<<<<< HEAD
           
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
           <div className="space-y-4">
             <div className="p-4 bg-amber-50 rounded-xl">
               <p className="text-sm text-gray-600">Salaire actuel:</p>
               <p className="text-2xl font-bold text-amber-600">{currentUser?.salary || 0} DH</p>
             </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
             <div className="space-y-2">
               <Label>Raisons de la demande</Label>
               <Textarea
                 value={raiseReason}
                 onChange={(e) => setRaiseReason(e.target.value)}
+<<<<<<< HEAD
                 placeholder="Expliquez les raisons de votre demande..."
                 rows={4}
               />
             </div>
 
+=======
+                placeholder="Expliquez les raisons..."
+                rows={4}
+              />
+            </div>
+>>>>>>> fa70c49 (Ajout de la structure du projet)
             <Button 
               onClick={requestRaise}
               className="w-full bg-gradient-to-r from-amber-500 to-yellow-500"
@@ -455,7 +535,10 @@ export default function DriverDashboard() {
           <DialogHeader>
             <DialogTitle>Mon Profil</DialogTitle>
           </DialogHeader>
+<<<<<<< HEAD
           
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
           <div className="space-y-4">
             <div className="space-y-2">
               <Label>Téléphone</Label>
@@ -464,7 +547,10 @@ export default function DriverDashboard() {
                 onChange={(e) => setProfileData({...profileData, phone: e.target.value})}
               />
             </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
             <div className="space-y-2">
               <Label>Email</Label>
               <Input
@@ -473,7 +559,10 @@ export default function DriverDashboard() {
                 onChange={(e) => setProfileData({...profileData, email: e.target.value})}
               />
             </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
             <Button 
               onClick={saveProfile}
               className="w-full bg-gradient-to-r from-amber-500 to-yellow-500"

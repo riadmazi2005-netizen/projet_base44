@@ -3,17 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { ShieldCheck } from 'lucide-react';
 import LoginForm from '@/components/auth/LoginForm';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 
 export default function AdminLogin() {
   const navigate = useNavigate();
 
   const handleLogin = async ({ identifier, password }) => {
+<<<<<<< HEAD
     const admins = await base44.entities.Admin.list();
     
     // If no admin exists, create default one
     if (admins.length === 0) {
       await base44.entities.Admin.create({
+=======
+    const admins = await mockData.entities.Admin.list();
+    
+    // If no admin exists, create default one
+    if (admins.length === 0) {
+      await mockData.entities.Admin.create({
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         username: 'admin',
         password: 'admin123',
         fullName: 'Administrateur Principal'

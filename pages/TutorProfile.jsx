@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +14,23 @@ import { Users, User, Bell, FileText, Save, Loader2, CheckCircle, Info } from 'l
 import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 
+<<<<<<< HEAD
+=======
+const STORAGE_PREFIX = 'schoolbus_';
+
+const updateTutor = (id, updates) => {
+  const data = localStorage.getItem(`${STORAGE_PREFIX}tutors`);
+  const tutors = data ? JSON.parse(data) : [];
+  const index = tutors.findIndex(t => t.id === id);
+  if (index !== -1) {
+    tutors[index] = { ...tutors[index], ...updates };
+    localStorage.setItem(`${STORAGE_PREFIX}tutors`, JSON.stringify(tutors));
+    return tutors[index];
+  }
+  return null;
+};
+
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 export default function TutorProfile() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
@@ -37,10 +57,17 @@ export default function TutorProfile() {
     setLoading(false);
   }, []);
 
+<<<<<<< HEAD
   const handleSave = async () => {
     setSaving(true);
     try {
       await base44.entities.Tutor.update(currentUser.id, formData);
+=======
+  const handleSave = () => {
+    setSaving(true);
+    try {
+      updateTutor(currentUser.id, formData);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       
       const updatedUser = { ...currentUser, ...formData };
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));

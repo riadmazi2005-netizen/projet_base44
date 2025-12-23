@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Button } from "@/components/ui/button";
@@ -55,10 +59,17 @@ export default function AdminBuses() {
   const loadData = async () => {
     try {
       const [busesData, driversData, supervisorsData, routesData] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Bus.list(),
         base44.entities.Driver.list(),
         base44.entities.Supervisor.list(),
         base44.entities.Route.list()
+=======
+        mockData.entities.Bus.list(),
+        mockData.entities.Driver.list(),
+        mockData.entities.Supervisor.list(),
+        mockData.entities.Route.list()
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
       
       const busesWithDetails = busesData.map(b => {
@@ -93,9 +104,15 @@ export default function AdminBuses() {
       };
 
       if (editingBus) {
+<<<<<<< HEAD
         await base44.entities.Bus.update(editingBus.id, data);
       } else {
         await base44.entities.Bus.create(data);
+=======
+        await mockData.entities.Bus.update(editingBus.id, data);
+      } else {
+        await mockData.entities.Bus.create(data);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       }
 
       setShowDialog(false);
@@ -111,7 +128,11 @@ export default function AdminBuses() {
   const deleteBus = async (bus) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce bus ?')) return;
     try {
+<<<<<<< HEAD
       await base44.entities.Bus.delete(bus.id);
+=======
+      await mockData.entities.Bus.delete(bus.id);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       loadData();
     } catch (error) {
       console.error('Error deleting bus:', error);
@@ -287,7 +308,11 @@ export default function AdminBuses() {
                   <SelectValue placeholder="Sélectionner un chauffeur" />
                 </SelectTrigger>
                 <SelectContent>
+<<<<<<< HEAD
                   <SelectItem value={null}>Aucun</SelectItem>
+=======
+                  <SelectItem value="">Aucun</SelectItem>
+>>>>>>> fa70c49 (Ajout de la structure du projet)
                   {drivers.map(d => (
                     <SelectItem key={d.id} value={d.id}>{d.firstName} {d.lastName}</SelectItem>
                   ))}
@@ -302,7 +327,11 @@ export default function AdminBuses() {
                   <SelectValue placeholder="Sélectionner un responsable" />
                 </SelectTrigger>
                 <SelectContent>
+<<<<<<< HEAD
                   <SelectItem value={null}>Aucun</SelectItem>
+=======
+                  <SelectItem value="">Aucun</SelectItem>
+>>>>>>> fa70c49 (Ajout de la structure du projet)
                   {supervisors.map(s => (
                     <SelectItem key={s.id} value={s.id}>{s.firstName} {s.lastName}</SelectItem>
                   ))}
@@ -317,7 +346,11 @@ export default function AdminBuses() {
                   <SelectValue placeholder="Sélectionner un trajet" />
                 </SelectTrigger>
                 <SelectContent>
+<<<<<<< HEAD
                   <SelectItem value={null}>Aucun</SelectItem>
+=======
+                  <SelectItem value="">Aucun</SelectItem>
+>>>>>>> fa70c49 (Ajout de la structure du projet)
                   {routes.map(r => (
                     <SelectItem key={r.id} value={r.id}>{r.routeId} - {r.terminus}</SelectItem>
                   ))}

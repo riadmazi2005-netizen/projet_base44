@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockData } from '@/services/mockDataService';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Button } from "@/components/ui/button";
@@ -54,9 +58,15 @@ export default function AdminAccidents() {
   const loadData = async () => {
     try {
       const [accidentsData, driversData, busesData] = await Promise.all([
+<<<<<<< HEAD
         base44.entities.Accident.list(),
         base44.entities.Driver.list(),
         base44.entities.Bus.list()
+=======
+        mockData.entities.Accident.list(),
+        mockData.entities.Driver.list(),
+        mockData.entities.Bus.list()
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       ]);
       
       const accidentsWithDetails = accidentsData.map(a => {
@@ -83,19 +93,31 @@ export default function AdminAccidents() {
     setSubmitting(true);
     try {
       // Create accident record
+<<<<<<< HEAD
       await base44.entities.Accident.create(formData);
+=======
+      await mockData.entities.Accident.create(formData);
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 
       // Get driver's current accident count
       const driverAccidents = accidents.filter(a => a.driverId === formData.driverId);
       const newCount = driverAccidents.length + 1;
 
       // Update driver's accident count
+<<<<<<< HEAD
       await base44.entities.Driver.update(formData.driverId, {
+=======
+      await mockData.entities.Driver.update(formData.driverId, {
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         accidentCount: newCount
       });
 
       // Notify driver
+<<<<<<< HEAD
       await base44.entities.Notification.create({
+=======
+      await mockData.entities.Notification.create({
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         recipientId: formData.driverId,
         recipientType: 'driver',
         type: 'accident',
@@ -109,7 +131,11 @@ export default function AdminAccidents() {
 
       // If 3 accidents, fire the driver
       if (newCount >= 3) {
+<<<<<<< HEAD
         await base44.entities.Driver.update(formData.driverId, {
+=======
+        await mockData.entities.Driver.update(formData.driverId, {
+>>>>>>> fa70c49 (Ajout de la structure du projet)
           status: 'fired'
         });
       }

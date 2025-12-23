@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+<<<<<<< HEAD
 import { base44 } from '@/api/base44Client';
+=======
+import { mockApi } from '@/services/mockData';
+>>>>>>> fa70c49 (Ajout de la structure du projet)
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import DataTable from '@/components/ui/DataTable';
 import { Badge } from "@/components/ui/badge";
@@ -29,13 +33,22 @@ export default function DriverStudents() {
 
   const loadData = async (user) => {
     try {
+<<<<<<< HEAD
       const buses = await base44.entities.Bus.filter({ driverId: user.id });
+=======
+      const buses = await mockApi.entities.Bus.filter({ driverId: user.id });
+>>>>>>> fa70c49 (Ajout de la structure du projet)
       const myBus = buses[0];
       setBus(myBus);
 
       if (myBus) {
+<<<<<<< HEAD
         const allStudents = await base44.entities.Student.filter({ busId: myBus.id, status: 'approved' });
         const tutors = await base44.entities.Tutor.list();
+=======
+        const allStudents = await mockApi.entities.Student.filter({ busId: myBus.id, status: 'approved' });
+        const tutors = await mockApi.entities.Tutor.list();
+>>>>>>> fa70c49 (Ajout de la structure du projet)
         const studentsWithTutors = allStudents.map(s => {
           const tutor = tutors.find(t => t.id === s.tutorId);
           return { ...s, tutorPhone: tutor?.phone };
@@ -164,4 +177,9 @@ export default function DriverStudents() {
       </div>
     </DashboardLayout>
   );
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> fa70c49 (Ajout de la structure du projet)
